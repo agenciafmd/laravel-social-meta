@@ -1,0 +1,30 @@
+{
+  "name": "agenciafmd/admix-social-meta",
+  "description": "Social Metas sem saber SEO",
+  "authors": [
+    {
+      "name": "Irineu Martins Junior",
+      "email": "irineu@fmd",
+      "homepage": "http://fmd.ag/",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "laravel/framework": "8.*"
+  },
+  "autoload": {
+    "files": [
+      "src/Http/helpers.php"
+    ],
+    "psr-4": {
+      "Agenciafmd\\SocialMeta\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Agenciafmd\\SocialMeta\\Providers\\SocialMetaServiceProvider"
+      ]
+    }
+  }
+}
