@@ -24,7 +24,10 @@
     "laravel": {
       "providers": [
         "Agenciafmd\\SocialMeta\\Providers\\SocialMetaServiceProvider"
-      ]
+      ],
+      "aliases": {
+        "OpenGraphImage": "\\Facades\\Agenciafmd\\SocialMeta\\Services\\OpenGraphImage"
+      }
     }
   }
 }

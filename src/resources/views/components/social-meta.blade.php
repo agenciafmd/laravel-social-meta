@@ -8,10 +8,7 @@
     <meta property="og:description" content="{{ $description }}">
 @endif
 
-@if ($image)
-    <meta property="og:image" content="{{ $image }}" />
-@endif
-
+<meta property="og:image" content="{{ asset(OpenGraphImage::generate($title)) }}" />
 <meta property="og:url" content="{{ $url }}" />
 <meta property="og:locale" content="{{ app()->getLocale() }}" />
 <meta property="og:site_name" content="{{ config('app.name') }}"/>
