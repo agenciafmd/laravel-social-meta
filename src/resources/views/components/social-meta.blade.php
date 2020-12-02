@@ -1,3 +1,5 @@
+<title>{{ $title }}</title>
+
 <meta name="twitter:card" content="{{ $card }}" />
 
 <meta property="og:type" content="{{ $type }}">

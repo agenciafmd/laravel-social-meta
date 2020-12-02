@@ -25,17 +25,17 @@ class SocialMetaServiceProvider extends ServiceProvider
 
     protected function loadConfigs()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/admix-social-meta.php', 'admix-social-meta');
+        $this->mergeConfigFrom(__DIR__ . '/../config/social-meta.php', 'social-meta');
     }
 
     protected function publish()
     {
         $this->publishes([
             __DIR__ . '/../config' => base_path('config'),
-        ], 'admix-social-meta:config');
+        ], 'social-meta:config');
 
         $this->publishes([
-            __DIR__ . '/../storage/admix-social-meta' => storage_path('admix-social-meta'),
-        ], 'admix-social-meta:assets');
+            __DIR__ . '/../storage/social-meta' => storage_path('social-meta'),
+        ], 'social-meta:assets');
     }
 }

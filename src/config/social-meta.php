@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'font' => storage_path('admix-social-meta/fonts/helvetica.ttf'),
-    'pattern' => storage_path('admix-social-meta/patterns/01.png'),
+    'font' => storage_path('social-meta/fonts/helvetica.ttf'),
+    'pattern' => storage_path('social-meta/patterns/01.png'),
     'color' => '#191919',
     'type' => [
         'facebook' => [

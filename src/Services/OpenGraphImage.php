@@ -16,10 +16,10 @@ class OpenGraphImage
             return Storage::url($path);
         }
 
-        $patternPath = config("admix-social-meta.pattern");
-        $fontPath = config("admix-social-meta.font");
-        $fontColor = config("admix-social-meta.color");
-        $config = config("admix-social-meta.type.{$type}");
+        $patternPath = config('social-meta.pattern');
+        $fontPath = config('social-meta.font');
+        $fontColor = config('social-meta.color');
+        $config = config("social-meta.type.{$type}");
 
         $width = $config['width'];
         $height = $config['height'];
