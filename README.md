@@ -3,7 +3,7 @@
 [![Downloads](https://img.shields.io/packagist/dt/agenciafmd/laravel-social-meta.svg?style=flat-square)](https://packagist.org/packages/agenciafmd/laravel-social-meta)
 [![Licença](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-- Social Meta for those who doesn't know SEO
+- Social Meta for those who doesn't know for what it for
 
 ## Installation
 

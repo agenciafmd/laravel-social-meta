@@ -1,6 +1,6 @@
 {
   "name": "agenciafmd/laravel-social-meta",
-  "description": "Social Metas sem saber SEO",
+  "description": "Social Meta for those who doesn't know for what it for",
   "authors": [
     {
       "name": "Irineu Martins Junior",
@@ -29,5 +29,6 @@
         "OpenGraphImage": "\\Facades\\Agenciafmd\\SocialMeta\\Services\\OpenGraphImage"
       }
     }
-  }
+  },
+  "license": "MIT"
 }
