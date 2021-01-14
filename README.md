@@ -13,7 +13,7 @@ composer require agenciafmd/laravel-social-meta:dev-master
 
 Publishing fonts and backgrounds on `storage/social-meta`
 
-```
+```bash
 php artisan vendor:publish --tag=social-meta:assets
 ```
 
@@ -65,7 +65,7 @@ OpenGraph Image
 
 ## Customize
 
-```
+```bash
 php artisan vendor:publish --tag=social-meta:config
 ``` 
 
