@@ -60,7 +60,7 @@ On their children
 
 OpenGraph Image
 
-![OpenGraph Image](https://raw.githubusercontent.com/agenciafmd/admix-social-meta/master/docs/screenshot.png "OpenGraph Image")
+![OpenGraph Image](https://raw.githubusercontent.com/agenciafmd/admix-social-meta/master/docs/screenshot.jpg "OpenGraph Image")
 
 
 ## Customize
