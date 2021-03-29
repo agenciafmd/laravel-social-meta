@@ -17,6 +17,12 @@ Publishing fonts and backgrounds on `storage/social-meta`
 php artisan vendor:publish --tag=social-meta:assets
 ```
 
+Publishing config file (`social-meta.php`)
+
+```bash
+php artisan vendor:publish --tag=social-meta:config
+```
+
 ## Usage
 
 Inside your `master.blade.php` (thanks to [Blade UI Kit](https://blade-ui-kit.com/docs/0.x/social-meta))

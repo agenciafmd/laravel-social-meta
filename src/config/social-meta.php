@@ -1,5 +1,6 @@
 <?php
 
+$fill = '#f7f7f7';
 $color = '#191919';
 $height = 314;
 
@@ -10,7 +11,7 @@ return [
         'card' => [
             'width' => 600,
             'height' => $height,
-            'fill' => '#f7f7f7',
+            'fill' => $fill,
             'color' => $color,
         ],
 
