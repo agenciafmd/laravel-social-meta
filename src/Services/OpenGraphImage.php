@@ -12,12 +12,10 @@ class OpenGraphImage
     public function generate(string $title = 'A cultura come a estratégia no café da manhã', string $url = 'https://fmd.ag/blog/minha-url-amigavel', string $type = 'facebook')
     {
         $path = "open-graph/{$type}/" . Str::slug($title) . ".png";
-        if (Storage::exists($path)) {
-            return Storage::url($path);
-        }
-
-        Storage::put($path, $this->build($title, $url, $type)
+        if (!Storage::exists($path)) {
+            Storage::put($path, $this->build($title, $url, $type)
                 ->encode('png'));
+        }
 
         return Storage::url($path);
     }
