@@ -13,7 +13,7 @@ class OpenGraphImage
     {
         $path = "open-graph/{$type}/" . Str::slug($title) . ".png";
         if (!Storage::exists($path)) {
-            Storage::put($path, $this->build($title, $url, $type)
+            Storage::put($path, (string) $this->build($title, $url, $type)
                 ->encode('png'));
         }
 
