@@ -5,7 +5,8 @@ namespace Agenciafmd\SocialMeta\Services;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Imagick\Driver;
 
 class OpenGraphImage
 {
@@ -13,8 +14,7 @@ class OpenGraphImage
     {
         $path = "open-graph/{$type}/" . Str::slug($title) . ".png";
         if (!Storage::exists($path)) {
-            Storage::put($path, (string) $this->build($title, $url, $type)
-                ->encode('png'));
+            Storage::put($path, (string) $this->build($title, $url, $type)->toPng());
         }
 
         return Storage::url($path);
@@ -22,8 +22,12 @@ class OpenGraphImage
 
     public function render(string $title = 'A cultura come a estratégia no café da manhã', string $url = 'https://fmd.ag/blog/minha-url-amigavel', string $type = 'facebook')
     {
-        return $this->build($title, $url, $type)
-            ->response();
+        $data = $this->build($title, $url, $type)->toPng();
+        $mime = finfo_buffer(finfo_open(FILEINFO_MIME_TYPE), $data);
+        $length = strlen($data);
+        return response($data, 200)
+            ->header('Content-Type', $mime)
+            ->header('Content-Length', $length);
     }
 
     private function build(string $title, string $url, string $type = 'facebook')
@@ -33,7 +37,8 @@ class OpenGraphImage
         // cria o canvas
         $cardWidth = $config["{$type}.card.width"] ?? $config['default.card.width'];
         $cardHeight = $config["{$type}.card.height"] ?? $config['default.card.height'];
-        $img = Image::canvas($cardWidth, $cardHeight);
+        $manager = new ImageManager(new Driver());
+        $img = $manager->create($cardWidth, $cardHeight);
 
         // preenche o canvas
         $cardFill = $config["{$type}.card.fill"] ?? $config['default.card.fill'];
@@ -44,7 +49,7 @@ class OpenGraphImage
         $logoPosition = $config["{$type}.logo.position"] ?? $config['default.logo.position'];
         $logoX = $config["{$type}.logo.x"] ?? $config['default.logo.x'];
         $logoY = $config["{$type}.logo.y"] ?? $config['default.logo.y'];
-        $img->insert($logoPath, $logoPosition, $logoX, $logoY);
+        $img->place($logoPath, $logoPosition, $logoX, $logoY);
 
 //        // insere linha
 //        for($i=0; $i<=2; $i++) {
