@@ -2,6 +2,7 @@
 
 namespace Agenciafmd\SocialMeta\Http\Components;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class SocialMeta extends Component
@@ -16,9 +17,9 @@ class SocialMeta extends Component
 
     public string $image;
 
-    public $url;
+    public string $url;
 
-    public $author;
+    public string $author;
 
     public function __construct(
         string $title,
@@ -28,8 +29,7 @@ class SocialMeta extends Component
         string $image = '',
         string $url = '',
         string $author = 'Agência F&MD'
-    )
-    {
+    ) {
         $this->title = $title;
         $this->description = $description;
         $this->type = $type;
@@ -39,8 +39,8 @@ class SocialMeta extends Component
         $this->author = $author;
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('agenciafmd/social-meta::components.social-meta');
+        return view('social-meta::components.social-meta');
     }
 }

@@ -2,17 +2,19 @@
 
 namespace Agenciafmd\SocialMeta\Services;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Interfaces\ImageInterface;
 
 class OpenGraphImage
 {
-    public function generate(string $title = 'A cultura come a estratégia no café da manhã', string $url = 'https://fmd.ag/blog/minha-url-amigavel', string $type = 'facebook')
+    public function generate(string $title = 'A cultura come a estratégia no café da manhã', string $url = 'https://fmd.ag/blog/minha-url-amigavel', string $type = 'facebook'): string
     {
-        $path = "open-graph/{$type}/" . Str::slug($title) . ".png";
+        $path = "open-graph/{$type}/" . Str::slug($title) . '.png';
         if (!Storage::exists($path)) {
             Storage::put($path, (string) $this->build($title, $url, $type)->toPng());
         }
@@ -20,24 +22,22 @@ class OpenGraphImage
         return Storage::url($path);
     }
 
-    public function render(string $title = 'A cultura come a estratégia no café da manhã', string $url = 'https://fmd.ag/blog/minha-url-amigavel', string $type = 'facebook')
+    public function render(string $title = 'A cultura come a estratégia no café da manhã', string $url = 'https://fmd.ag/blog/minha-url-amigavel', string $type = 'facebook'): Response
     {
         $data = $this->build($title, $url, $type)->toPng();
-        $mime = finfo_buffer(finfo_open(FILEINFO_MIME_TYPE), $data);
-        $length = strlen($data);
-        return response($data, 200)
-            ->header('Content-Type', $mime)
-            ->header('Content-Length', $length);
+        $mime = $data->mediaType();
+
+        return response($data)
+            ->header('Content-Type', $mime);
     }
 
-    private function build(string $title, string $url, string $type = 'facebook')
+    private function build(string $title, string $url, string $type = 'facebook'): ImageInterface
     {
         $config = Arr::dot(config('social-meta'));
-
         // cria o canvas
         $cardWidth = $config["{$type}.card.width"] ?? $config['default.card.width'];
         $cardHeight = $config["{$type}.card.height"] ?? $config['default.card.height'];
-        $manager = new ImageManager(new Driver());
+        $manager = new ImageManager(new Driver);
         $img = $manager->create($cardWidth, $cardHeight);
 
         // preenche o canvas
@@ -51,12 +51,12 @@ class OpenGraphImage
         $logoY = $config["{$type}.logo.y"] ?? $config['default.logo.y'];
         $img->place($logoPath, $logoPosition, $logoX, $logoY);
 
-//        // insere linha
-//        for($i=0; $i<=2; $i++) {
-//            $img->line(30, 230 + $i, 100, 230 + $i, function ($draw) {
-//                $draw->color('#191919');
-//            });
-//        }
+        //        // insere linha
+        //        for($i=0; $i<=2; $i++) {
+        //            $img->line(30, 230 + $i, 100, 230 + $i, function ($draw) {
+        //                $draw->color('#191919');
+        //            });
+        //        }
 
         // insere o title
         $titleX = $config["{$type}.title.x"] ?? $config['default.title.x'];
@@ -70,10 +70,9 @@ class OpenGraphImage
         $titleFontValign = $config["{$type}.title.font.valign"] ?? $config['default.title.font.valign'];
 
         $lines = explode("\n", wordwrap($title, $titleMaxlength));
-        $titleY = $titleY - ((count($lines) - 1) * $titleLineHeight);
+        $titleY -= ((count($lines) - 1) * $titleLineHeight);
 
         foreach ($lines as $line) {
-
             $img->text($line, $titleX, $titleY, function ($font) use (
                 $titleFontFile, $titleFontSize, $titleFontColor, $titleFontAlign, $titleFontValign
             ) {

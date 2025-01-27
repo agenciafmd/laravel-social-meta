@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
 
 class BladeServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->loadBladeComponents();
 
@@ -19,28 +19,28 @@ class BladeServiceProvider extends ServiceProvider
         $this->loadViews();
     }
 
-    public function register()
+    public function register(): void
     {
         //
     }
 
-    protected function loadBladeComponents()
+    protected function loadBladeComponents(): void
     {
         Blade::component('social-meta', SocialMeta::class);
     }
 
-    protected function loadBladeComposers()
+    protected function loadBladeComposers(): void
     {
         //
     }
 
-    protected function loadBladeDirectives()
+    protected function loadBladeDirectives(): void
     {
         //
     }
 
-    protected function loadViews()
+    protected function loadViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'agenciafmd/social-meta');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'social-meta');
     }
 }
