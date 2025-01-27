@@ -3,23 +3,23 @@
 [![Downloads](https://img.shields.io/packagist/dt/agenciafmd/laravel-social-meta.svg?style=flat-square)](https://packagist.org/packages/agenciafmd/laravel-social-meta)
 [![Licença](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-- Social Meta for those who doesn't know for what it for
+- Social Meta para quem não sabe para que serve
 
-## Installation
+## Instalação
 
 ```
 composer require agenciafmd/laravel-social-meta:dev-master
 ```
 
-Publishing fonts and backgrounds on `storage/social-meta`
+Publicação de fontes e backgrounds em `storage/social-meta`
 
 ```bash
 php artisan vendor:publish --tag=social-meta:assets
 ```
 
-## Usage
+## Uso
 
-Inside your `master.blade.php` (thanks to [Blade UI Kit](https://blade-ui-kit.com/docs/0.x/social-meta))
+Dentro do seu `master.blade.php` (obrigado [Blade UI Kit](https://blade-ui-kit.com/docs/0.x/social-meta))
 
 ```blade
 <x-social-meta
@@ -28,7 +28,7 @@ Inside your `master.blade.php` (thanks to [Blade UI Kit](https://blade-ui-kit.co
 />
 ```
 
-On their children
+Em seus filhos
 
 ```
 @extends('agenciafmd/frontend::master')
@@ -37,7 +37,7 @@ On their children
 @section('description', 'My custom description')
 ```
 
-### Output
+### Saída
 
 ```
 <title>My custom title | Laravel</title>
@@ -58,12 +58,11 @@ On their children
  
 ```
 
-OpenGraph Image
+OpenGraph Imagem
 
 ![OpenGraph Image](https://raw.githubusercontent.com/agenciafmd/admix-social-meta/master/docs/screenshot.jpg "OpenGraph Image")
 
-
-## Customize
+## Personalização
 
 ```bash
 php artisan vendor:publish --tag=social-meta:config
@@ -71,7 +70,7 @@ php artisan vendor:publish --tag=social-meta:config
 
 ## Debug
 
-Put inside `routes/web.php`
+Coloque dentro de `routes/web.php`
 
 ```php
 use Facades\Agenciafmd\SocialMeta\Services\OpenGraphImage;
@@ -81,6 +80,6 @@ Route::get('/asdf', function() {
 });
 ```
 
-## License
+## Licença
 
-License MIT. [Click here](LICENSE.md) for more details.
+Licença MIT. [Click here](LICENSE.md) para mais detalhes.
