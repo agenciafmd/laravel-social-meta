@@ -41,6 +41,6 @@ class BladeServiceProvider extends ServiceProvider
 
     protected function loadViews()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'agenciafmd/social-meta');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'agenciafmd/social-meta');
     }
 }
