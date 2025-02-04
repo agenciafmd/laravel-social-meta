@@ -8,13 +8,7 @@
 ## Instalação
 
 ```
-composer require agenciafmd/laravel-social-meta:dev-master
-```
-
-Publicação de fontes e backgrounds em `storage/social-meta`
-
-```bash
-php artisan vendor:publish --tag=social-meta:assets
+composer require agenciafmd/laravel-social-meta:v11.x-dev
 ```
 
 ## Uso
@@ -23,7 +17,7 @@ Dentro do seu `master.blade.php` (obrigado [Blade UI Kit](https://blade-ui-kit.c
 
 ```blade
 <x-social-meta
-    title="{{ $__env->yieldContent('title', 'Culture Eats Strategy for Breakfast') }} | {{ config('app.name') }}"
+    title="{{ $__env->yieldContent('title', 'A cultura come a estratégia no café da manhã.') }} | {{ config('app.name') }}"
     description="{{ $__env->yieldContent('description') }}"
 />
 ```
@@ -33,22 +27,22 @@ Em seus filhos
 ```
 @extends('agenciafmd/frontend::master')
 
-@section('title', 'My custom title')
-@section('description', 'My custom description')
+@section('title', 'A cultura come a estratégia no café da manhã.')
+@section('description', 'Esta é uma frase de Peter Drucker, considerado o pai da administração moderna.')
 ```
 
 ### Saída
 
 ```
-<title>My custom title | Laravel</title>
+<title>A cultura come a estratégia no café da manhã | Laravel</title>
 
 <meta name="twitter:card" content="summary_large_image" />
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="My custom title | Laravel" />
+<meta property="og:title" content="A cultura come a estratégia no café da manhã | Laravel" />
 
-<meta name="description" content="My custom description">
-<meta property="og:description" content="My custom description">
+<meta name="description" content="Esta é uma frase de Peter Drucker, considerado o pai da administração moderna.">
+<meta property="og:description" content="Esta é uma frase de Peter Drucker, considerado o pai da administração moderna.">
 
 <meta property="og:image" content="http://starternovo.local/storage/open-graph/facebook/my-custom-title-laravel.png" />
 <meta property="og:url" content="http://starternovo.local" />
@@ -62,20 +56,28 @@ OpenGraph Imagem
 
 ![OpenGraph Image](https://raw.githubusercontent.com/agenciafmd/admix-social-meta/master/docs/screenshot.jpg "OpenGraph Image")
 
-## Personalização
+## Customização
 
 ```bash
 php artisan vendor:publish --tag=social-meta:config
 ``` 
 
+Publicação das fontes em `storage/social-meta`
+
+```bash
+php artisan vendor:publish --tag=social-meta:assets
+```
+
+> Não esqueça de customizar os paths em `config/social-meta.php`
+
 ## Debug
 
-Coloque dentro de `routes/web.php`
+Coloque no `routes/web.php` e acesse `/debug`
 
 ```php
 use Facades\Agenciafmd\SocialMeta\Services\OpenGraphImage;
 
-Route::get('/asdf', function() {
+Route::get('/debug', function() {
     return OpenGraphImage::render();
 });
 ```
