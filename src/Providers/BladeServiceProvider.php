@@ -10,13 +10,13 @@ class BladeServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->loadBladeComponents();
+        $this->bootBladeComponents();
 
-        $this->loadBladeDirectives();
+        $this->bootBladeDirectives();
 
-        $this->loadBladeComposers();
+        $this->bootBladeComposers();
 
-        $this->loadViews();
+        $this->bootViews();
     }
 
     public function register(): void
@@ -24,22 +24,22 @@ class BladeServiceProvider extends ServiceProvider
         //
     }
 
-    protected function loadBladeComponents(): void
+    protected function bootBladeComponents(): void
     {
         Blade::component('social-meta', SocialMeta::class);
     }
 
-    protected function loadBladeComposers(): void
+    protected function bootBladeComposers(): void
     {
         //
     }
 
-    protected function loadBladeDirectives(): void
+    protected function bootBladeDirectives(): void
     {
         //
     }
 
-    protected function loadViews(): void
+    protected function bootViews(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'social-meta');
     }

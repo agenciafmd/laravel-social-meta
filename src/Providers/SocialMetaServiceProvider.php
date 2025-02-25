@@ -8,27 +8,27 @@ class SocialMetaServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->providers();
+        $this->bootProviders();
 
-        $this->publish();
+        $this->bootPublish();
     }
 
     public function register(): void
     {
-        $this->loadConfigs();
+        $this->registerConfigs();
     }
 
-    protected function providers(): void
+    protected function bootProviders(): void
     {
         $this->app->register(BladeServiceProvider::class);
     }
 
-    protected function loadConfigs(): void
+    protected function registerConfigs(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/social-meta.php', 'social-meta');
     }
 
-    protected function publish(): void
+    protected function bootPublish(): void
     {
         $this->publishes([
             __DIR__ . '/../../config' => base_path('config'),
