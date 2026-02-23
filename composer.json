@@ -1,37 +1,37 @@
 {
-  "name": "agenciafmd/laravel-social-meta",
-  "description": "Social Meta for those who doesn't know for what it for",
-  "homepage": "https://github.com/agenciafmd/laravel-social-meta",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Irineu Martins Junior",
-      "email": "irineu@fmd.ag",
-      "homepage": "http://fmd.ag/",
-      "role": "Developer"
-    }
-  ],
-  "require": {
-    "ext-fileinfo": "*",
-    "intervention/image": "^3.11",
-    "laravel/framework": "^11.0"
-  },
-  "autoload": {
-    "files": [
-      "src/Http/helpers.php"
+    "name": "agenciafmd/laravel-social-meta",
+    "description": "Social Meta for those who doesn't know for what it for",
+    "homepage": "https://github.com/agenciafmd/laravel-social-meta",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Irineu Martins Junior",
+            "email": "irineu@fmd.ag",
+            "homepage": "http://fmd.ag/",
+            "role": "Developer"
+        }
     ],
-    "psr-4": {
-      "Agenciafmd\\SocialMeta\\": "src/"
+    "require": {
+        "ext-fileinfo": "*",
+        "intervention/image": "^3.11",
+        "laravel/framework": "^12.0"
+    },
+    "autoload": {
+        "files": [
+            "src/Http/helpers.php"
+        ],
+        "psr-4": {
+            "Agenciafmd\\SocialMeta\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Agenciafmd\\SocialMeta\\Providers\\SocialMetaServiceProvider"
+            ],
+            "aliases": {
+                "OpenGraphImage": "\\Facades\\Agenciafmd\\SocialMeta\\Services\\OpenGraphImage"
+            }
+        }
     }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Agenciafmd\\SocialMeta\\Providers\\SocialMetaServiceProvider"
-      ],
-      "aliases": {
-        "OpenGraphImage": "\\Facades\\Agenciafmd\\SocialMeta\\Services\\OpenGraphImage"
-      }
-    }
-  }
 }

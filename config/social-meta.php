@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $fill = '#f7f7f7';
 $color = '#191919';
 $height = 314;

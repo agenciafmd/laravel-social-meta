@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Agenciafmd\SocialMeta\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class SocialMetaServiceProvider extends ServiceProvider
+final class SocialMetaServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {

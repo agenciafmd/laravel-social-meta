@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Agenciafmd\SocialMeta\Services;
 
 use Illuminate\Http\Response;
@@ -10,7 +12,7 @@ use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
 
-class OpenGraphImage
+final class OpenGraphImage
 {
     public function generate(string $title = 'A cultura come a estratégia no café da manhã', string $url = 'https://fmd.ag/blog/minha-url-amigavel', string $type = 'facebook'): string
     {

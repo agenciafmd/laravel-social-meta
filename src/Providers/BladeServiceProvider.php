@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Agenciafmd\SocialMeta\Providers;
 
 use Agenciafmd\SocialMeta\Http\Components\SocialMeta;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
-class BladeServiceProvider extends ServiceProvider
+final class BladeServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
