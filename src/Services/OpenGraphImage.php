@@ -17,7 +17,7 @@ final class OpenGraphImage
     public function generate(string $title = 'A cultura come a estratégia no café da manhã', string $url = 'https://fmd.ag/blog/minha-url-amigavel', string $type = 'facebook'): string
     {
         $path = "open-graph/{$type}/" . Str::slug($title) . '.png';
-        if (!Storage::exists($path)) {
+        if (! Storage::exists($path)) {
             Storage::put($path, (string) $this->build($title, $url, $type)->toPng());
         }
 
