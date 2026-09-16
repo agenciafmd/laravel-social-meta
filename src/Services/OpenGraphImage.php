@@ -77,7 +77,7 @@ final class OpenGraphImage
         foreach ($lines as $line) {
             $img->text($line, $titleX, $titleY, function ($font) use (
                 $titleFontFile, $titleFontSize, $titleFontColor, $titleFontAlign, $titleFontValign
-            ) {
+            ): void {
                 $font->file($titleFontFile);
                 $font->size($titleFontSize);
                 $font->color($titleFontColor);
@@ -99,7 +99,7 @@ final class OpenGraphImage
 
         $img->text($url, $urlX, $urlY, function ($font) use (
             $urlFontFile, $urlFontSize, $urlFontColor, $urlFontAlign, $urlFontValign
-        ) {
+        ): void {
             $font->file($urlFontFile);
             $font->size($urlFontSize);
             $font->color($urlFontColor);

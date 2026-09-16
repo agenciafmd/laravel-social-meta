@@ -26,22 +26,22 @@ final class BladeServiceProvider extends ServiceProvider
         //
     }
 
-    protected function bootBladeComponents(): void
+    private function bootBladeComponents(): void
     {
         Blade::component('social-meta', SocialMeta::class);
     }
 
-    protected function bootBladeComposers(): void
+    private function bootBladeComposers(): void
     {
         //
     }
 
-    protected function bootBladeDirectives(): void
+    private function bootBladeDirectives(): void
     {
         //
     }
 
-    protected function bootViews(): void
+    private function bootViews(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'social-meta');
     }
