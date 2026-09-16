@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Agenciafmd\SocialMeta\Providers;
 
 use Agenciafmd\SocialMeta\Http\Components\SocialMeta;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 
 final class BladeServiceProvider extends ServiceProvider
 {
@@ -28,7 +28,9 @@ final class BladeServiceProvider extends ServiceProvider
 
     private function bootBladeComponents(): void
     {
-        Blade::component('social-meta', SocialMeta::class);
+        $this->callAfterResolving(BladeCompiler::class, function (BladeCompiler $blade): void {
+            $blade->component(SocialMeta::class, 'social-meta');
+        });
     }
 
     private function bootBladeComposers(): void
