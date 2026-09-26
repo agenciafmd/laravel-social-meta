@@ -31,51 +31,59 @@ final class OpenGraphImage
         $data = $this->build($title, $url, $type)->toPng();
         $mime = $data->mediaType();
 
-        return response($data)
+        return response((string) $data)
             ->header('Content-Type', $mime);
     }
 
     private function build(string $title, string $url, string $type = 'facebook'): ImageInterface
     {
-        $config = Arr::dot(config('social-meta'));
-        $setting = fn (string $key): mixed => $config["{$type}.{$key}"] ?? $config["default.{$key}"];
+        $config = Arr::dot(config()->array('social-meta'));
+        $setting = static fn (string $key): mixed => $config["{$type}.{$key}"] ?? $config["default.{$key}"] ?? null;
+        $string = static fn (string $key): string => is_scalar($value = $setting($key)) ? (string) $value : '';
+        $integer = static fn (string $key): int => is_numeric($value = $setting($key)) ? (int) $value : 0;
+        $float = static fn (string $key): float => is_numeric($value = $setting($key)) ? (float) $value : 0.0;
 
         // cria e preenche o canvas
         $manager = new ImageManager(new Driver);
-        $img = $manager->create($setting('card.width'), $setting('card.height'));
+        $img = $manager->create($integer('card.width'), $integer('card.height'));
         $img->fill($setting('card.fill'));
 
         // insere a logo
-        $img->place($setting('logo.path'), $setting('logo.position'), $setting('logo.x'), $setting('logo.y'));
+        $img->place($string('logo.path'), $string('logo.position'), $integer('logo.x'), $integer('logo.y'));
 
         // insere o title
-        $titleX = $setting('title.x');
-        $titleY = $setting('title.y');
-        $titleLineHeight = $setting('title.line_height');
+        $titleX = $integer('title.x');
+        $titleY = $integer('title.y');
+        $titleLineHeight = $integer('title.line_height');
 
-        $lines = explode("\n", wordwrap($title, $setting('title.maxlength')));
+        $lines = explode("\n", wordwrap($title, $integer('title.maxlength')));
         $titleY -= ((count($lines) - 1) * $titleLineHeight);
 
         foreach ($lines as $line) {
-            $img->text($line, $titleX, $titleY, $this->font($setting, 'title'));
+            $img->text($line, $titleX, $titleY, $this->font($string, $float, $setting, 'title'));
 
             $titleY += $titleLineHeight;
         }
 
         // insere a url
-        $img->text($url, $setting('url.x'), $setting('url.y'), $this->font($setting, 'url'));
+        $img->text($url, $integer('url.x'), $integer('url.y'), $this->font($string, $float, $setting, 'url'));
 
         return $img;
     }
 
-    private function font(Closure $setting, string $section): Closure
+    /**
+     * @param  Closure(string): string  $string
+     * @param  Closure(string): float  $float
+     * @param  Closure(string): mixed  $setting
+     */
+    private function font(Closure $string, Closure $float, Closure $setting, string $section): Closure
     {
-        return function (FontFactory $font) use ($setting, $section): void {
-            $font->file($setting("{$section}.font.file"));
-            $font->size($setting("{$section}.font.size"));
+        return static function (FontFactory $font) use ($string, $float, $setting, $section): void {
+            $font->file($string("{$section}.font.file"));
+            $font->size($float("{$section}.font.size"));
             $font->color($setting("{$section}.font.color"));
-            $font->align($setting("{$section}.font.align"));
-            $font->valign($setting("{$section}.font.valign"));
+            $font->align($string("{$section}.font.align"));
+            $font->valign($string("{$section}.font.valign"));
         };
     }
 }
