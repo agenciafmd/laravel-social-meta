@@ -8,7 +8,6 @@ use Closure;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
@@ -18,7 +17,7 @@ final class OpenGraphImage
 {
     public function generate(string $title = 'A cultura come a estratégia no café da manhã', string $url = 'https://fmd.ag/blog/minha-url-amigavel', string $type = 'facebook'): string
     {
-        $path = "open-graph/{$type}/" . Str::slug($title) . '.png';
+        $path = "open-graph/{$type}/" . str($title)->slug()->toString() . '.png';
         if (! Storage::exists($path)) {
             Storage::put($path, (string) $this->build($title, $url, $type)->toPng());
         }
