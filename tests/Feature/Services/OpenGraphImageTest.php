@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-uses(TestCase::class, RefreshDatabase::class);
+pest()->extend(TestCase::class)->use(RefreshDatabase::class);
 
 it('renders the card as a png image', function (): void {
     $response = new OpenGraphImage()->render('Um título longo o suficiente para quebrar em duas linhas no card', 'https://fmd.ag/blog');
