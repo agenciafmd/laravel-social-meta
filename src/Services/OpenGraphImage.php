@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Imagick\Driver;
+use Intervention\Image\Format;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Typography\FontFactory;
@@ -19,7 +20,7 @@ final class OpenGraphImage
     {
         $path = "open-graph/{$type}/" . str($title)->slug()->toString() . '.png';
         if (! Storage::exists($path)) {
-            Storage::put($path, (string) $this->build($title, $url, $type)->toPng());
+            Storage::put($path, (string) $this->build($title, $url, $type)->encodeUsingFormat(Format::PNG));
         }
 
         return Storage::url($path);
@@ -27,7 +28,7 @@ final class OpenGraphImage
 
     public function render(string $title = 'A cultura come a estratégia no café da manhã', string $url = 'https://fmd.ag/blog/minha-url-amigavel', string $type = 'facebook'): Response
     {
-        $data = $this->build($title, $url, $type)->toPng();
+        $data = $this->build($title, $url, $type)->encodeUsingFormat(Format::PNG);
         $mime = $data->mediaType();
 
         return response((string) $data)
@@ -44,11 +45,11 @@ final class OpenGraphImage
 
         // cria e preenche o canvas
         $manager = new ImageManager(new Driver);
-        $img = $manager->create($integer('card.width'), $integer('card.height'));
-        $img->fill($setting('card.fill'));
+        $img = $manager->createImage($integer('card.width'), $integer('card.height'));
+        $img->fill($string('card.fill'));
 
         // insere a logo
-        $img->place($string('logo.path'), $string('logo.position'), $integer('logo.x'), $integer('logo.y'));
+        $img->insert($string('logo.path'), $integer('logo.x'), $integer('logo.y'), $string('logo.position'));
 
         // insere o title
         $titleX = $integer('title.x');
@@ -59,13 +60,13 @@ final class OpenGraphImage
         $titleY -= ((count($lines) - 1) * $titleLineHeight);
 
         foreach ($lines as $line) {
-            $img->text($line, $titleX, $titleY, $this->font($string, $float, $setting, 'title'));
+            $img->text($line, $titleX, $titleY, $this->font($string, $float, 'title'));
 
             $titleY += $titleLineHeight;
         }
 
         // insere a url
-        $img->text($url, $integer('url.x'), $integer('url.y'), $this->font($string, $float, $setting, 'url'));
+        $img->text($url, $integer('url.x'), $integer('url.y'), $this->font($string, $float, 'url'));
 
         return $img;
     }
@@ -73,16 +74,14 @@ final class OpenGraphImage
     /**
      * @param  Closure(string): string  $string
      * @param  Closure(string): float  $float
-     * @param  Closure(string): mixed  $setting
      */
-    private function font(Closure $string, Closure $float, Closure $setting, string $section): Closure
+    private function font(Closure $string, Closure $float, string $section): Closure
     {
-        return static function (FontFactory $font) use ($string, $float, $setting, $section): void {
+        return static function (FontFactory $font) use ($string, $float, $section): void {
             $font->file($string("{$section}.font.file"));
             $font->size($float("{$section}.font.size"));
-            $font->color($setting("{$section}.font.color"));
-            $font->align($string("{$section}.font.align"));
-            $font->valign($string("{$section}.font.valign"));
+            $font->color($string("{$section}.font.color"));
+            $font->align($string("{$section}.font.align"), $string("{$section}.font.valign"));
         };
     }
 }
